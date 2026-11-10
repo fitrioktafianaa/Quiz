@@ -1,3 +1,4 @@
+
 class Mario {
     HP: number = 1;
     speed: number = 5;
@@ -23,13 +24,15 @@ class Mario {
     }
     
     moveRight(){
-        this.positionX += this.speed
+        this.positionX += this.speed;
         console.log (`${this.currentForm} bergerak ke kanan, posisi X menjadi ${this.positionX}`);
     }
+
     moveLeft() {
-        this.positionX -= this.speed
+        this.positionX -= this.speed;
         console.log (`${this.currentForm} bergerak ke kiri, posisi X menjadi ${this.positionX}`);
     }
+
     takeDamage(): void {
         if (this.invincible === true) {
             console.log('Mario kebal, serangan tidak berpengaruh.');
@@ -46,7 +49,19 @@ class SuperMario extends Mario {
     superMushroom(): void {
         this.HP += 1;
         this.currentForm = 'super mario';
-        console.log(`Mario berubah menjadi Super Mario, HP menjadi = ${this.HP}`);
+        console.log(`Mario berubah menjadi Super Mario, HP menjadi = ${this.HP}`);      
+    }
+
+    override takeDamage(): void {
+        if (this.invincible === true) {
+            console.log('Super Mario kebal, serangan tidak berpengaruh.');
+        } else {
+            this.HP -= 1;
+            this.currentForm = 'mario';
+            console.log('Super Mario terkena serangan!');
+            console.log(`HP sekarang = ${this.HP}`);
+            console.log('Super Mario kembali menjadi Mario biasa.');
+        }
     }
 }
 
@@ -54,11 +69,23 @@ class FireMario extends Mario {
     FireFlower(): void {
         this.HP += 1;
         this.currentForm = 'fire mario';
-        console.log(`Mario berubah menjadi Fire Mario, HP menjadi = ${this.HP} `)
+        console.log(`Mario berubah menjadi Fire Mario, HP menjadi = ${this.HP} `);
     }
 
     shootFireball(): void {
         console.log('dan Mario dapat menembakkan bola api');
+    }
+
+    override takeDamage(): void {
+        if (this.invincible === true) {
+            console.log('Fire Mario kebal, serangan tidak berpengaruh.');
+        } else {
+            this.HP -= 1;
+            this.currentForm = 'mario';
+            console.log('Fire Mario terkena serangan!');
+            console.log(`HP sekarang = ${this.HP}`);
+            console.log('Fire Mario kembali menjadi Mario biasa.');
+        }
     }
 }
 
@@ -85,11 +112,3 @@ mario.takeDamage();
 const marioInvincible = new Mario(1, 5, 'mario', true, 0, 0);
 marioInvincible.moveRight();
 marioInvincible.moveLeft();
-
-
-
-
-
-
-
-
